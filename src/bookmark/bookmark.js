@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './bookmark.css';
 import Rating from '../rating/rating';
 // import AddBookmark from '../addBookmark/addBookmark';
@@ -26,3 +27,9 @@ export default function Bookmark(props) {
     </div>
   ) 
 }
+Bookmark.propTypes = {
+  title: PropTypes.string,
+  url: PropTypes.string,
+  rating: PropTypes.number,
+  description: PropTypes.string
+};

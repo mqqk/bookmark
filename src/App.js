@@ -21,6 +21,8 @@ class App extends Component {
   }
 
   addBookmark(bookmark) {
+    console.log('hi')
+    console.log(bookmark)
     this.setState({
       bookmarks: [...this.state.bookmarks,bookmark],
       showAddForm:false
@@ -34,52 +36,19 @@ class App extends Component {
   //   })
   // }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const {title, url, description, rating} = this.state;
-    const bookmark = {title, url, description, rating};
-    // const url ='https://tf-ed-bookmarks-api.herokuapp.com/v3/bookmarks';
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(bookmark),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $2a$10$7FyrEl8qOKfiD3h/vBZIQ.JXWMikW6aZUlKG/xDi7GeHqGqouMKxm"
-      }
-    };
 
-    fetch(url, options)
-      .then(res => {
-        if(!res.ok) {
-          throw new Error('Something went wrong, please try again later');
-        }
-        return res.json();
-      })
-      .then(data => {
-        this.setState({
-          title: "",
-          url: "",
-          description: "",
-          rating: 1
-        });
-        this.props.handleAdd(bookmark);
-      })
-      .catch(err => {
-        this.setState({
-          error: err.message
-        });
-      });
-  }
 
   componentDidMount() {
     const url = 'https://tf-ed-bookmarks-api.herokuapp.com/v3/bookmarks';
     const options = {
       method: 'GET',
       headers: {
-        "Authorization": "Bearer $2a$10$7FyrEl8qOKfiD3h/vBZIQ.JXWMikW6aZUlKG/xDi7GeHqGqouMKxm",
+        "Authorization": "Bearer a20c092a-65d0-41e6-87f3-2bcb105b85c8",
         "Content-Type": "application/json"
       }
     };
+
+    console.log(url,options)
 
     fetch(url, options)
       .then(res => {

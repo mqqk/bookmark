@@ -39,21 +39,23 @@ class AddBookmark extends Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    console.log("hi",url);
+    
     const {title, url, description, rating} = this.state;
     const bookmark = {title, url, description, rating};
-    // const url ='https://tf-ed-bookmarks-api.herokuapp.com/v3/bookmarks';
+    console.log(bookmark,'handleSubmit');
+    const urlNew ='https://tf-ed-bookmarks-api.herokuapp.com/v3/bookmarks';
+    console.log("hi",urlNew);
     const options = {
       method: 'POST',
       body: JSON.stringify(bookmark),
       headers: {
+        "Authorization": "Bearer a20c092a-65d0-41e6-87f3-2bcb105b85c8",
         "Content-Type": "application/json",
-        "Authorization": "Bearer $2a$10$7FyrEl8qOKfiD3h/vBZIQ.JXWMikW6aZUlKG/xDi7GeHqGqouMKxm"
       }
     };
     
 
-    fetch(url, options)
+    fetch(urlNew, options)
       .then(res => {
         if(!res.ok) {
           throw new Error('Something went wrong, please try again later');
@@ -61,12 +63,14 @@ class AddBookmark extends Component {
         return res.json();
       })
       .then(data => {
+        console.log(data)
         this.setState({
           title: "",
           url: "",
           description: "",
           rating: 1
         });
+        console.log('right')
         this.props.handleAdd(bookmark);
       })
       .catch(err => {
@@ -81,7 +85,7 @@ class AddBookmark extends Component {
     return (
       <div className="addbookmark">
         <h2>Add Bookmark</h2>
-        <form className="addbookmark__form">
+        <form className="addbookmark__form" onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor="title">Title:</label>
           <input 
             type="text" 
@@ -121,7 +125,7 @@ class AddBookmark extends Component {
               >Cancel</button>
             <button 
               type="submit" 
-              // onClick={e => this.props.handleAdd()}
+              // onClick={e => this.props.handleAdd(e)}
               >Save</button>
           </div>  
         </form>
